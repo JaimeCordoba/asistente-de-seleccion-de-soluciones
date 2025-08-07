@@ -1,0 +1,76 @@
+{
+  "Suministro_BajaTension_Aereo": {
+    "descripcion": "Trabajos a ralizar: Instalar CGP en fachada si da la altura, si no poner CPM en fachada y si no hay fachada, instalar hornacina con postelete.",
+    "reglas_positivas": [
+      { "condicion": "tipo_solicitud == 'Suministro'", "peso": 0.375 },
+      { "condicion": "nivel_tension == 'BT'", "peso": 0.375 },
+      { "condicion": "linea_aerea_cercana == true", "peso": 0.25 }
+    ],
+    "reglas_exclusion": [
+      "zona == 'Zaragoza'",
+      "tipo_solicitud == 'Generación'",
+      "tipo_solicitud == 'Variante'"
+    ]
+  },
+  "Suministro_BajaTension_Subterraneo": {
+    "descripcion": "Trabajos a ralizar: Instalar monolito en el límite de la parcela del suministro.",
+    "reglas_positivas": [
+      { "condicion": "tipo_solicitud == 'Suministro'", "peso": 0.375 },
+      { "condicion": "nivel_tension == 'BT'", "peso": 0.375 },
+      { "condicion": "linea_subterranea_cercana == true", "peso": 0.25 }
+    ],
+    "reglas_exclusion": [
+      "zona == 'Teruel'",
+      "tipo_solicitud == 'Generación'",
+      "tipo_solicitud == 'Variante'"
+    ]
+  },
+  "Generacion_MediaTension_Aereo": {
+    "reglas_positivas": [
+      { "condicion": "tipo_solicitud == 'Generación'", "peso": 0.375 },
+      { "condicion": "nivel_tension == 'MT'", "peso": 0.375 },
+      { "condicion": "linea_aerea_cercana == true", "peso": 0.25 }
+    ],
+    "reglas_exclusion": [
+      "zona == 'Zaragoza'",
+      "tipo_solicitud == 'Suministro'",
+      "tipo_solicitud == 'Variante'"
+    ]
+  },
+  "Generacion_MediaTension_Subterraneo": {
+    "reglas_positivas": [
+      { "condicion": "tipo_solicitud == 'Generación'", "peso": 0.375 },
+      { "condicion": "nivel_tension == 'MT'", "peso": 0.375 },
+      { "condicion": "linea_subterranea_cercana == true", "peso": 0.25 }
+    ],
+    "reglas_exclusion": [
+      "zona == 'Teruel'",
+      "tipo_solicitud == 'Suministro'",
+      "tipo_solicitud == 'Variante'"
+    ]
+  },
+  "Variante_BajaTension_Aereo": {
+    "reglas_positivas": [
+      { "condicion": "tipo_solicitud == 'Variante'", "peso": 0.375 },
+      { "condicion": "nivel_tension == 'BT'", "peso": 0.375 },
+      { "condicion": "linea_aerea_cercana == true", "peso": 0.25 }
+    ],
+    "reglas_exclusion": [
+      "zona == 'Zaragoza'",
+      "tipo_solicitud == 'Suministro'",
+      "tipo_solicitud == 'Generación'"
+    ]
+  },
+  "Variante_BajaTension_Subterraneo": {
+    "reglas_positivas": [
+      { "condicion": "tipo_solicitud == 'Variante'", "peso": 0.375 },
+      { "condicion": "nivel_tension == 'BT'", "peso": 0.375 },
+      { "condicion": "linea_subterranea_cercana == true", "peso": 0.25 }
+    ],
+    "reglas_exclusion": [
+      "zona == 'Teruel'",
+      "tipo_solicitud == 'Suministro'",
+      "tipo_solicitud == 'Generación'"
+    ]
+  }
+}

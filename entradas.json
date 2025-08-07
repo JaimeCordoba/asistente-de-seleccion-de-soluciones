@@ -1,0 +1,9 @@
+[
+  { "nombre": "tipo_solicitud", "tipo": "texto", "obligatoria": true, "opciones": ["Suministro", "Generación", "Variante"] },
+  { "nombre": "nivel_tension", "tipo": "texto", "obligatoria": true, "opciones": ["BT", "MT"] },
+  { "nombre": "zona", "tipo": "texto", "obligatoria": false, "opciones": ["Huesca", "Teruel", "Zaragoza"] },
+  { "nombre": "tipo_suelo", "tipo": "texto", "obligatoria": true, "opciones": ["urbano", "rural"] },
+  { "nombre": "linea_aerea_cercana", "tipo": "booleano", "obligatoria": false },
+  { "nombre": "linea_subterranea_cercana", "tipo": "booleano", "obligatoria": false },
+  { "nombre": "distancia_pcr", "tipo": "numero", "obligatoria": true }
+]
