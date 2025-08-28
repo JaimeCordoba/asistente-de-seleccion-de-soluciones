@@ -1,76 +1,62 @@
 {
-  "Suministro_BajaTension_Aereo": {
-    "descripcion": "Trabajos a ralizar: Instalar CGP en fachada si da la altura, si no poner CPM en fachada y si no hay fachada, instalar hornacina con postelete.",
-    "reglas_positivas": [
-      { "condicion": "tipo_solicitud == 'Suministro'", "peso": 0.375 },
-      { "condicion": "nivel_tension == 'BT'", "peso": 0.375 },
-      { "condicion": "linea_aerea_cercana == true", "peso": 0.25 }
-    ],
-    "reglas_exclusion": [
-      "zona == 'Zaragoza'",
-      "tipo_solicitud == 'Generación'",
-      "tipo_solicitud == 'Variante'"
+  "Baremo_Solo_Contador": {
+    "condiciones_obligatorias": { "zona": "Aragón", "subzona": ["Teruel", "Zaragoza"], "tecnico": "Antonio" },
+    "reglas_inclusion": ["tratamiento_economico == 'Baremo'", "aparamenta_existente == true", "contador_existente == false"],
+    "reglas_exclusion": []
+  },
+  "Baremo_Acometida_Contador": {
+    "condiciones_obligatorias": { "zona": "Aragón", "subzona": ["Teruel", "Zaragoza"], "tecnico": "Antonio" },
+    "reglas_inclusion": ["tratamiento_economico == 'Baremo'", "numero_suministros == 'Un solo suministro'"],
+    "reglas_exclusion": ["instalar_conversion == true", "instalar_nuevos_apoyos == true", "aparamenta_existente == true"],
+    "reglas_blandas": [
+      { "variable": "fachada_con_espacio_para_cgp", "condicion": "fachada_con_espacio_para_cgp == true", "apoyo": 0.2 },
+      { "variable": "numero_suministros", "condicion": "numero_suministros == 'Un solo suministro'", "apoyo": 0.1 },
+      { "variable": "subzona", "condicion": "subzona == 'Teruel'", "apoyo": 0.1 }
     ]
   },
-  "Suministro_BajaTension_Subterraneo": {
-    "descripcion": "Trabajos a ralizar: Instalar monolito en el límite de la parcela del suministro.",
-    "reglas_positivas": [
-      { "condicion": "tipo_solicitud == 'Suministro'", "peso": 0.375 },
-      { "condicion": "nivel_tension == 'BT'", "peso": 0.375 },
-      { "condicion": "linea_subterranea_cercana == true", "peso": 0.25 }
-    ],
-    "reglas_exclusion": [
-      "zona == 'Teruel'",
-      "tipo_solicitud == 'Generación'",
-      "tipo_solicitud == 'Variante'"
+  "Baremo_Solo_Acometida": {
+    "condiciones_obligatorias": { "zona": "Aragón", "subzona": ["Zaragoza"], "tecnico": "Antonio" },
+    "reglas_inclusion": ["tratamiento_economico == 'Baremo'", "distancia_pcr <= 50"],
+    "reglas_exclusion": ["instalar_conversion == true", "instalar_nuevos_apoyos == true", "aparamenta_existente == true"],
+    "reglas_blandas": [
+      { "variable": "fachada_con_espacio_para_cgp", "condicion": "fachada_con_espacio_para_cgp == true", "apoyo": 0.2 },
+      { "variable": "numero_suministros", "condicion": "numero_suministros == 'Un solo suministro'", "apoyo": 0.1 },
+      { "variable": "subzona", "condicion": "subzona == 'Zaragoza'", "apoyo": 0.1 }
     ]
   },
-  "Generacion_MediaTension_Aereo": {
-    "reglas_positivas": [
-      { "condicion": "tipo_solicitud == 'Generación'", "peso": 0.375 },
-      { "condicion": "nivel_tension == 'MT'", "peso": 0.375 },
-      { "condicion": "linea_aerea_cercana == true", "peso": 0.25 }
-    ],
-    "reglas_exclusion": [
-      "zona == 'Zaragoza'",
-      "tipo_solicitud == 'Suministro'",
-      "tipo_solicitud == 'Variante'"
-    ]
+  "Baremo_Oferta_Directa_Teruel": {
+    "condiciones_obligatorias": { "zona": "Aragón", "subzona": ["Teruel"], "tecnico": "Antonio" },
+    "reglas_inclusion": ["tratamiento_economico == 'Baremo'"],
+    "reglas_exclusion": ["instalar_conversion == true", "instalar_nuevos_apoyos == true", "aparamenta_existente == true"]
   },
-  "Generacion_MediaTension_Subterraneo": {
-    "reglas_positivas": [
-      { "condicion": "tipo_solicitud == 'Generación'", "peso": 0.375 },
-      { "condicion": "nivel_tension == 'MT'", "peso": 0.375 },
-      { "condicion": "linea_subterranea_cercana == true", "peso": 0.25 }
-    ],
-    "reglas_exclusion": [
-      "zona == 'Teruel'",
-      "tipo_solicitud == 'Suministro'",
-      "tipo_solicitud == 'Variante'"
-    ]
+  "Baremo_Oferta_Directa_Zaragoza": {
+    "condiciones_obligatorias": { "zona": "Aragón", "subzona": ["Zaragoza"], "tecnico": "Antonio" },
+    "reglas_inclusion": ["tratamiento_economico == 'Baremo'"],
+    "reglas_exclusion": ["instalar_nuevos_apoyos == true", "aparamenta_existente == true"]
   },
-  "Variante_BajaTension_Aereo": {
-    "reglas_positivas": [
-      { "condicion": "tipo_solicitud == 'Variante'", "peso": 0.375 },
-      { "condicion": "nivel_tension == 'BT'", "peso": 0.375 },
-      { "condicion": "linea_aerea_cercana == true", "peso": 0.25 }
-    ],
-    "reglas_exclusion": [
-      "zona == 'Zaragoza'",
-      "tipo_solicitud == 'Suministro'",
-      "tipo_solicitud == 'Generación'"
-    ]
+  "Baremo_Sin_Trabajos_EDE": {
+    "condiciones_obligatorias": { "zona": "Aragón", "subzona": ["Teruel", "Zaragoza"], "tecnico": "Antonio" },
+    "reglas_inclusion": ["tratamiento_economico == 'Baremo'", "aparamenta_existente == true", "contador_existente == true"],
+    "reglas_exclusion": ["suministro_de_obras == true"]
   },
-  "Variante_BajaTension_Subterraneo": {
-    "reglas_positivas": [
-      { "condicion": "tipo_solicitud == 'Variante'", "peso": 0.375 },
-      { "condicion": "nivel_tension == 'BT'", "peso": 0.375 },
-      { "condicion": "linea_subterranea_cercana == true", "peso": 0.25 }
-    ],
-    "reglas_exclusion": [
-      "zona == 'Teruel'",
-      "tipo_solicitud == 'Suministro'",
-      "tipo_solicitud == 'Generación'"
-    ]
+  "Presupuesto_Sin_Trabajos_EDE": {
+    "condiciones_obligatorias": { "zona": "Aragón", "subzona": ["Teruel", "Zaragoza"], "tecnico": "Antonio" },
+    "reglas_inclusion": ["tratamiento_economico == 'Presupuesto'", "aparamenta_existente == true"],
+    "reglas_exclusion": []
+  },
+  "Presupuesto_Solo_Conexion_DSIC": {
+    "condiciones_obligatorias": { "zona": "Aragón", "subzona": ["Teruel", "Zaragoza"], "tecnico": "Antonio" },
+    "reglas_inclusion": ["tratamiento_economico == 'Presupuesto'"],
+    "reglas_exclusion": ["suministro_de_obras == true", "aparamenta_existente == true"]
+  },
+  "Presupuesto_Conexion_Contador_DSIC": {
+    "condiciones_obligatorias": { "zona": "Aragón", "subzona": ["Teruel", "Zaragoza"], "tecnico": "Antonio" },
+    "reglas_inclusion": ["tratamiento_economico == 'Presupuesto'", "suministro_de_obras == true"],
+    "reglas_exclusion": ["aparamenta_existente == true"]
+  },
+  "Circuito_General": {
+    "condiciones_obligatorias": { "zona": "Aragón", "subzona": ["Teruel", "Zaragoza"], "tecnico": "Antonio" },
+    "reglas_inclusion": [],
+    "reglas_exclusion": ["aparamenta_existente == true"]
   }
 }

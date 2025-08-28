@@ -1,118 +1,748 @@
 body {
-  font-family: "Segoe UI", Arial, sans-serif;
-  background: #121212;
-  color: #e0e0e0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
+  padding: 20px;
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+  line-height: 1.6;
+  transition: all 0.3s ease;
 }
 
 .container {
   display: flex;
-  justify-content: space-between;
-  padding: 20px;
-  gap: 20px;
+  gap: 30px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .inputs, .outputs {
-  background: rgba(30, 30, 30, 0.95);
-  padding: 20px;
+  background: #2d2d2d;
+  padding: 25px;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-  width: 45%;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.05);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  border: 1px solid #404040;
 }
 
-.inputs:hover, .outputs:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 25px rgba(0,0,0,0.7);
+.inputs {
+  flex: 1;
+  min-width: 400px;
+}
+
+.outputs {
+  flex: 2;
+  min-width: 600px;
 }
 
 h2 {
   color: #ffffff;
   margin-top: 0;
+  margin-bottom: 25px;
+  font-size: 1.5em;
+  font-weight: 600;
+  border-bottom: 2px solid #4a9eff;
+  padding-bottom: 10px;
+}
+
+/* Estilos para el formulario */
+.campo-entrada {
   margin-bottom: 20px;
+  transition: all 0.3s ease;
+  opacity: 1;
+  max-height: 100px;
+  overflow: hidden;
 }
 
-label {
+.campo-entrada.oculto {
+  opacity: 0;
+  max-height: 0;
+  margin-bottom: 0;
+  pointer-events: none;
+}
+
+.campo-entrada label {
   display: block;
-  margin-bottom: 15px;
-  font-size: 0.95rem;
+  margin-bottom: 6px;
+  font-weight: 500;
   color: #b0b0b0;
+  font-size: 14px;
 }
 
-input, select {
-  display: block;
-  margin-top: 5px;
-  padding: 8px 10px;
+.campo-entrada select,
+.campo-entrada input {
   width: 100%;
-  background: #1e1e1e;
-  border: 1px solid #333;
+  padding: 10px 12px;
+  border: 2px solid #555;
   border-radius: 6px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  background-color: #404040;
   color: #e0e0e0;
-  font-size: 0.95rem;
-  outline: none;
-  transition: border-color 0.2s ease, background 0.2s ease;
+  box-sizing: border-box;
 }
 
-input:focus, select:focus {
-  border-color: #4da3ff;
-  background: #2a2a2a;
+.campo-entrada select:focus,
+.campo-entrada input:focus {
+  outline: none;
+  border-color: #4a9eff;
+  box-shadow: 0 0 0 3px rgba(74, 158, 255, 0.2);
+  background-color: #4a4a4a;
+}
+
+/* Estilos para campos obligatorios no completados */
+.campo-entrada.obligatorio-incompleto label {
+  color: #ff6b6b;
+  font-weight: 600;
+}
+
+.campo-entrada.obligatorio-incompleto select,
+.campo-entrada.obligatorio-incompleto input {
+  border-color: #ff6b6b;
+  background-color: #4a2d2d;
+  box-shadow: 0 0 0 2px rgba(255, 107, 107, 0.2);
+}
+
+.campo-entrada.obligatorio-incompleto select:focus,
+.campo-entrada.obligatorio-incompleto input:focus {
+  border-color: #ff6b6b;
+  box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.3);
 }
 
 button {
-  margin-top: 10px;
-  padding: 10px 18px;
-  background: linear-gradient(45deg, #0078d7, #00b4d8);
+  background: linear-gradient(135deg, #4a9eff, #3d8bff);
   color: white;
   border: none;
-  border-radius: 6px;
+  padding: 12px 30px;
+  border-radius: 8px;
   cursor: pointer;
+  font-size: 16px;
   font-weight: 500;
-  letter-spacing: 0.3px;
-  transition: background 0.3s ease, transform 0.1s ease;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+  width: 100%;
 }
 
 button:hover {
-  background: linear-gradient(45deg, #0091ff, #00d4ff);
+  background: linear-gradient(135deg, #3d8bff, #2a7cff);
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(74, 158, 255, 0.4);
 }
 
-.outputs ul {
+button:active {
+  transform: translateY(0);
+}
+
+/* Estilos para los resultados */
+#resultado {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.outputs li {
-  padding: 10px;
-  margin-bottom: 8px;
-  background: #1f1f1f;
-  border-radius: 6px;
-  border: 1px solid #333;
-  color: #000;
-  font-size: 0.95rem;
-  transition: background 0.3s ease;
-}
-
-.outputs li:hover {
-  background: #2b2b2b;
-  transform: translateX(3px);
-}
-
-.input-error {
-  border: 2px solid #ff4d4d !important;
-  background-color: #2a0000 !important;
-}
-
-.descripcion-desplegable {
-  background-color: #2a2a2a;
-  color: #ffffff;
-  padding: 10px;
-  margin-top: 8px;
-  border-radius: 6px;
-  border: 1px solid #444;
-  font-size: 0.9em;
-  line-height: 1.4;
+.resultado-item {
+  background: #3a3a3a;
+  margin: 15px 0;
+  border-radius: 8px;
+  border: 1px solid #555;
+  overflow: hidden;
   transition: all 0.3s ease;
+}
+
+.resultado-item:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  transform: translateY(-2px);
+  border-color: #4a9eff;
+}
+
+.resultado-header {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  background: linear-gradient(135deg, #4a4a4a, #3a3a3a);
+  border-bottom: 1px solid #555;
+}
+
+.resultado-header.recomendado {
+  background: linear-gradient(135deg, #2d5a2d, #1f4a1f);
+  border-left: 4px solid #4caf50;
+}
+
+.posicion {
+  background: #666;
+  color: white;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  margin-right: 15px;
+}
+
+.recomendado .posicion {
+  background: #4caf50;
+}
+
+.nombre {
+  flex: 1;
+  font-weight: 600;
+  color: #ffffff;
+  font-size: 16px;
+}
+
+.probabilidad {
+  background: #4a9eff;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.recomendado .probabilidad {
+  background: #4caf50;
+}
+
+.descripcion {
+  padding: 15px 20px;
+  color: #b0b0b0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.explicacion {
+  padding: 0 20px 15px;
+}
+
+.explicacion details {
+  margin-top: 10px;
+}
+
+.explicacion summary {
+  color: #4a9eff;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 5px 0;
+  transition: color 0.3s ease;
+}
+
+.explicacion summary:hover {
+  color: #3d8bff;
+}
+
+.explicacion ul {
+  margin: 10px 0 0 0;
+  padding-left: 20px;
+}
+
+.explicacion li {
+  font-size: 12px;
+  color: #888;
+  margin: 5px 0;
+  background: none;
+  padding: 0;
+  border: none;
+}
+
+/* Mensajes de estado */
+.sin-resultados {
+  background: #4a2c2c;
+  color: #ff6b6b;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid #665;
+}
+
+.alerta-variables-faltantes {
+  background: #4a4a2c;
+  color: #ffd93d;
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #666633;
+}
+
+/* Alerta para campos obligatorios faltantes */
+.alerta-obligatorios-faltantes {
+  background: #4a2d2d;
+  color: #ff6b6b;
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 1px solid #663333;
+  text-align: center;
+}
+
+.alerta-obligatorios-faltantes h3 {
+  margin: 0 0 10px 0;
+  font-size: 18px;
+  color: #ff6b6b;
+}
+
+.alerta-obligatorios-faltantes p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.alerta-obligatorios-faltantes .campos-faltantes {
+  font-weight: 600;
+  color: #ff8a8a;
+  margin-top: 10px;
+}
+
+.alerta-variables-faltantes h3 {
+  margin: 0 0 10px 0;
+  font-size: 16px;
+}
+
+.alerta-variables-faltantes p {
+  margin: 0;
+  font-size: 14px;
+}
+
+/* Indicadores de confianza */
+.confianza {
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.confianza-alta {
+  background: #2d4a2d;
+  color: #4caf50;
+  border: 1px solid #4a6b4a;
+}
+
+.confianza-media {
+  background: #4a4a2c;
+  color: #ffd93d;
+  border: 1px solid #666633;
+}
+
+.confianza-baja {
+  background: #4a2c2c;
+  color: #ff6b6b;
+  border: 1px solid #665;
+}
+
+.confianza small {
+  display: block;
+  margin-top: 8px;
+  font-weight: normal;
+  opacity: 0.8;
+}
+
+/* Botón alternador de tema */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #4a9eff, #3d8bff);
+  color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  z-index: 1000;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(74, 158, 255, 0.4);
+}
+
+/* Modo claro */
+body.light-mode {
+  background-color: #f5f7fa;
+  color: #333;
+}
+
+body.light-mode .inputs,
+body.light-mode .outputs {
+  background: white;
+  border: 1px solid #e1e8ed;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+body.light-mode h2 {
+  color: #2c3e50;
+  border-bottom-color: #3498db;
+}
+
+body.light-mode .campo-entrada label {
+  color: #34495e;
+}
+
+body.light-mode .campo-entrada select,
+body.light-mode .campo-entrada input {
+  background-color: white;
+  border-color: #e1e8ed;
+  color: #333;
+}
+
+body.light-mode .campo-entrada select:focus,
+body.light-mode .campo-entrada input:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+  background-color: white;
+}
+
+body.light-mode .resultado-item {
+  background: white;
+  border-color: #e1e8ed;
+}
+
+body.light-mode .resultado-item:hover {
+  border-color: #3498db;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+body.light-mode .resultado-header {
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-bottom-color: #e1e8ed;
+}
+
+body.light-mode .resultado-header.recomendado {
+  background: linear-gradient(135deg, #d4edda, #c3e6cb);
+  border-left-color: #28a745;
+}
+
+body.light-mode .posicion {
+  background: #6c757d;
+}
+
+body.light-mode .recomendado .posicion {
+  background: #28a745;
+}
+
+body.light-mode .nombre {
+  color: #2c3e50;
+}
+
+body.light-mode .probabilidad {
+  background: #3498db;
+}
+
+body.light-mode .recomendado .probabilidad {
+  background: #28a745;
+}
+
+body.light-mode .descripcion {
+  color: #5a6c7d;
+}
+
+body.light-mode .explicacion summary {
+  color: #3498db;
+}
+
+body.light-mode .explicacion summary:hover {
+  color: #2980b9;
+}
+
+body.light-mode .explicacion li {
+  color: #6c757d;
+}
+
+body.light-mode .sin-resultados {
+  background: #f8d7da;
+  color: #721c24;
+  border-color: #f5c6cb;
+}
+
+body.light-mode .alerta-variables-faltantes {
+  background: #fff3cd;
+  color: #856404;
+  border-color: #ffeaa7;
+}
+
+body.light-mode .alerta-obligatorios-faltantes {
+  background: #f8d7da;
+  color: #721c24;
+  border-color: #f5c6cb;
+}
+
+body.light-mode .alerta-obligatorios-faltantes h3 {
+  color: #721c24;
+}
+
+body.light-mode .alerta-obligatorios-faltantes .campos-faltantes {
+  color: #842029;
+}
+
+body.light-mode .campo-entrada.obligatorio-incompleto label {
+  color: #dc3545;
+}
+
+body.light-mode .campo-entrada.obligatorio-incompleto select,
+body.light-mode .campo-entrada.obligatorio-incompleto input {
+  border-color: #dc3545;
+  background-color: #f8d7da;
+  box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.15);
+}
+
+body.light-mode .campo-entrada.obligatorio-incompleto select:focus,
+body.light-mode .campo-entrada.obligatorio-incompleto input:focus {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.25);
+}
+
+body.light-mode .confianza-alta {
+  background: #d4edda;
+  color: #155724;
+  border-color: #c3e6cb;
+}
+
+body.light-mode .confianza-media {
+  background: #fff3cd;
+  color: #856404;
+  border-color: #ffeaa7;
+}
+
+body.light-mode .confianza-baja {
+  background: #f8d7da;
+  color: #721c24;
+  border-color: #f5c6cb;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .inputs, .outputs {
+    min-width: auto;
+  }
+  
+  .resultado-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  
+  .posicion {
+    align-self: flex-start;
+  }
+  
+  .theme-toggle {
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+  }
+}
+
+/* Estilos para variables críticas */
+.alerta-variables-criticas {
+  background: linear-gradient(135deg, #2d4a5c, #3d5a7c);
+  border: 2px solid #4a9eff;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(74, 158, 255, 0.2);
+}
+
+.alerta-variables-criticas h3 {
+  color: #4a9eff;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.2em;
+}
+
+.variables-criticas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.variable-critica {
+  background: #4a9eff;
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9em;
+  font-weight: 500;
+  display: inline-block;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.alerta-variables-criticas details {
+  margin-top: 15px;
+}
+
+.alerta-variables-criticas summary {
+  color: #4a9eff;
+  cursor: pointer;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+.alerta-variables-criticas summary:hover {
+  color: #6bb6ff;
+}
+
+.alerta-variables-criticas ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.alerta-variables-criticas li {
+  margin-bottom: 8px;
+  color: #b0b0b0;
+}
+
+/* Estilos específicos para el sistema simplificado */
+.campo-entrada.oculto {
+  display: none !important;
+  opacity: 0;
+  height: 0;
+  margin: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.campo-entrada:not(.oculto) {
+  display: block;
+  opacity: 1;
+  height: auto;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+/* Animación suave para mostrar/ocultar campos */
+.campo-entrada {
+  transition: opacity 0.3s ease, height 0.3s ease, margin 0.3s ease;
+}
+
+/* Indicador visual para campos obligatorios */
+.campo-entrada label::after {
+  content: "";
+}
+
+.campo-entrada.obligatorio-incompleto {
+  border: 2px solid #ff6b6b;
+  padding: 15px;
+  background-color: rgba(255, 107, 107, 0.15);
+  border-radius: 8px;
+  box-shadow: 0 0 8px rgba(255, 107, 107, 0.3);
+  animation: pulso-rojo 2s infinite;
+}
+
+.campo-entrada.obligatorio-incompleto label {
+  color: #ff4757;
+  font-weight: bold;
+}
+
+.campo-entrada.obligatorio-incompleto select,
+.campo-entrada.obligatorio-incompleto input {
+  border: 2px solid #ff6b6b;
+  background-color: #333;
+}
+
+/* Animación de pulso sutil para campos obligatorios incompletos */
+@keyframes pulso-rojo {
+  0% { box-shadow: 0 0 8px rgba(255, 107, 107, 0.3); }
+  50% { box-shadow: 0 0 12px rgba(255, 107, 107, 0.5); }
+  100% { box-shadow: 0 0 8px rgba(255, 107, 107, 0.3); }
+}
+
+/* Mensaje mejorado para campos obligatorios */
+.alerta-obligatorios-faltantes {
+  background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+  border-left: 5px solid #ff4757;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+}
+
+.alerta-obligatorios-faltantes h3 {
+  margin-top: 0;
+  color: white;
+  font-size: 1.2em;
+}
+
+.alerta-obligatorios-faltantes p {
+  margin-bottom: 15px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.campos-faltantes {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  color: white;
+}
+
+/* Progreso visual del formulario */
+.progreso-formulario {
+  background: #2d2d2d;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid #404040;
+}
+
+.progreso-barra {
+  width: 100%;
+  height: 8px;
+  background: #404040;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.progreso-relleno {
+  height: 100%;
+  background: linear-gradient(90deg, #4a9eff, #6bb6ff);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.progreso-texto {
+  font-size: 0.9em;
+  color: #b0b0b0;
+  text-align: center;
+}
+
+/* Estilos específicos para campos obligatorios en modo claro */
+body.light-mode .campo-entrada.obligatorio-incompleto {
+  border: 2px solid #dc3545;
+  background-color: rgba(220, 53, 69, 0.1);
+  box-shadow: 0 0 8px rgba(220, 53, 69, 0.25);
+}
+
+body.light-mode .campo-entrada.obligatorio-incompleto label {
+  color: #dc3545;
+}
+
+body.light-mode .campo-entrada.obligatorio-incompleto select,
+body.light-mode .campo-entrada.obligatorio-incompleto input {
+  border: 2px solid #dc3545;
+  background-color: #ffffff;
+}
+
+/* Animación de pulso para modo claro */
+body.light-mode .campo-entrada.obligatorio-incompleto {
+  animation: pulso-rojo-claro 2s infinite;
+}
+
+@keyframes pulso-rojo-claro {
+  0% { box-shadow: 0 0 8px rgba(220, 53, 69, 0.25); }
+  50% { box-shadow: 0 0 12px rgba(220, 53, 69, 0.4); }
+  100% { box-shadow: 0 0 8px rgba(220, 53, 69, 0.25); }
 }

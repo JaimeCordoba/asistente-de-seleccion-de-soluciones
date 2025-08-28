@@ -1,0 +1,42 @@
+[
+  {
+    "nombre": "Baremo_Solo_Contador",
+    "descripcion": "Instalación o reemplazo de contador en aparamenta existente. Monopunto o centralización."
+  },
+  {
+    "nombre": "Baremo_Acometida_Contador",
+    "descripcion": "Nueva acometida con contador. PC en aéreo para un solo suministro. Mayor preferencia que oferta directa si se puede."
+  },
+  {
+    "nombre": "Baremo_Solo_Acometida",
+    "descripcion": "Nueva acometida con o sin contador, en aéreo para varios suministros o uno con PC fuera de la fachada del solicitante, hasta 50m, sin conversiones ni apoyos. Mayor preferencia que oferta directa si se puede."
+  },
+  {
+    "nombre": "Baremo_Oferta_Directa_Teruel",
+    "descripcion": "Oferta directa para uno o múltiples suministros en parcela, cuando hay vuelos fuera de la fachada o cuando el técnico lo indique expresamente."
+  },
+  {
+    "nombre": "Baremo_Oferta_Directa_Zaragoza",
+    "descripcion": "Oferta directa para uno o múltiples suministros en parcela, cuando hay vuelos fuera de la fachada o cuando el técnico lo indique expresamente."
+  },
+  {
+    "nombre": "Baremo_Sin_Trabajos_EDE",
+    "descripcion": "Ampliaciones de potencia sin trabajos adicionales, (instalación y contador existentes). Con tratamiento a baremo."
+  },
+  {
+    "nombre": "Presupuesto_Sin_Trabajos_EDE",
+    "descripcion": "Ampliaciones de potencia sin trabajos adicionales, (instalación y contador existentes). Con tratamiento a presupuesto. Por ejemplo provisionales de obra en centralización."
+  },
+  {
+    "nombre": "Presupuesto_Solo_Conexion_DSIC",
+    "descripcion": "Nuevos suministros o ampliaciones con PC en aéreo. Tratamiento a presupuesto. Solo para suministros definitivos. Ver si requiere Oferta Completa o solo Entronque con Cesión"
+  },
+  {
+    "nombre": "Presupuesto_Conexion_Contador_DSIC",
+    "descripcion": "Nuevos suministros o ampliaciones con PC en aéreo. Tratamiento a presupuesto. Solo para obras y eventuales."
+  },
+  {
+    "nombre": "Circuito_General",
+    "descripcion": "Caso no cubierto por las categorías anteriores. Se lleva por circuito general."
+  }
+]

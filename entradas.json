@@ -1,9 +1,34 @@
 [
-  { "nombre": "tipo_solicitud", "tipo": "texto", "obligatoria": true, "opciones": ["Suministro", "Generación", "Variante"] },
-  { "nombre": "nivel_tension", "tipo": "texto", "obligatoria": true, "opciones": ["BT", "MT"] },
-  { "nombre": "zona", "tipo": "texto", "obligatoria": false, "opciones": ["Huesca", "Teruel", "Zaragoza"] },
-  { "nombre": "tipo_suelo", "tipo": "texto", "obligatoria": true, "opciones": ["urbano", "rural"] },
-  { "nombre": "linea_aerea_cercana", "tipo": "booleano", "obligatoria": false },
-  { "nombre": "linea_subterranea_cercana", "tipo": "booleano", "obligatoria": false },
-  { "nombre": "distancia_pcr", "tipo": "numero", "obligatoria": true }
+  { "nombre": "zona", "tipo": "texto", "opciones": ["Aragón"] },
+  { "nombre": "subzona", "tipo": "texto", "opciones": ["Teruel", "Zaragoza"] },
+  { "nombre": "tecnico", "tipo": "texto", "opciones": ["Antonio"] },
+
+  { "nombre": "tratamiento_economico", "tipo": "texto", "opciones": ["Baremo", "Presupuesto"] },
+
+  {
+    "nombre": "tipo_solicitud",
+    "tipo": "texto",
+    "opciones": ["Suministro", "Ampliación de potencia", "Cambio de tensión", "Ampliación de potencia con cambio de tensión"]
+  },
+
+  { "nombre": "aparamenta_existente", "tipo": "booleano" },
+  { "nombre": "contador_existente", "tipo": "booleano" },
+
+  { "nombre": "suministro_de_obras", "tipo": "booleano" },
+
+  {
+    "nombre": "numero_suministros",
+    "tipo": "texto",
+    "opciones": ["Un solo suministro", "Varios suministros"]
+  },
+
+  { "nombre": "linea_aerea_cercana", "tipo": "booleano" },
+  { "nombre": "linea_subterranea_cercana", "tipo": "booleano" },
+  { "nombre": "distancia_pcr", "tipo": "numero" },
+
+  { "nombre": "instalar_conversion", "tipo": "booleano" },
+  { "nombre": "instalar_nuevos_apoyos", "tipo": "booleano" },
+  { "nombre": "cruzar_calles_desde_pc_a_parcela", "tipo": "booleano" },
+
+  { "nombre": "fachada_con_espacio_para_cgp", "tipo": "booleano" }
 ]
