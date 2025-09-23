@@ -1,196 +1,196 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistema de Selección - Modo Desarrollo</title>
-  <link rel="stylesheet" href="style.css">
-  <style>
-    .panel-desarrollo {
-      background: #f8f9fa;
-      padding: 20px;
-      margin: 20px 0;
-      border-radius: 8px;
-      border: 1px solid #dee2e6;
-    }
-    
-    .botones-desarrollo {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin: 15px 0;
-    }
-    
-    .botones-desarrollo button {
-      width: auto;
-      margin: 0;
-      padding: 8px 16px;
-      font-size: 14px;
-    }
-    
-    .info-desarrollo {
-      background: white;
-      padding: 15px;
-      border-radius: 6px;
-      margin-top: 15px;
-      border: 1px solid #e9ecef;
-    }
-    
-    .metricas {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-      margin-top: 15px;
-    }
-    
-    .metrica {
-      background: white;
-      padding: 15px;
-      border-radius: 6px;
-      border: 1px solid #e9ecef;
-      text-align: center;
-    }
-    
-    .metrica-valor {
-      font-size: 24px;
-      font-weight: bold;
-      color: #3498db;
-    }
-    
-    .metrica-label {
-      font-size: 12px;
-      color: #6c757d;
-      margin-top: 5px;
-    }
-  </style>
-</head>
-<body>
-  <!-- Botón alternador de tema -->
-  <button class="theme-toggle" onclick="alternarTema()" title="Alternar tema claro/oscuro">☀️</button>
-  
-  <div class="container">
-    <div class="inputs">
-      <h2>Parámetros de entrada</h2>
-      <form id="formEntradas"></form>
-      
-      <!-- Panel de desarrollo -->
-      <div class="panel-desarrollo">
-        <h3>🔧 Panel de Desarrollo</h3>
-        
-        <div class="botones-desarrollo">
-          <button type="button" onclick="probarEscenarios()">Probar Escenarios</button>
-          <button type="button" onclick="validarConfiguracion()">Validar Config</button>
-          <button type="button" onclick="exportarDatos()">Exportar</button>
-          <button type="button" onclick="mostrarMetricas()">Métricas</button>
-          <button type="button" onclick="resetearMetricas()">Reset Métricas</button>
-          <button type="button" onclick="alternarDebug()" id="btnDebug">Activar Debug</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema de Selección - Modo Desarrollo</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      .panel-desarrollo {
+        background: #f8f9fa;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 8px;
+        border: 1px solid #dee2e6;
+      }
+
+      .botones-desarrollo {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin: 15px 0;
+      }
+
+      .botones-desarrollo button {
+        width: auto;
+        margin: 0;
+        padding: 8px 16px;
+        font-size: 14px;
+      }
+
+      .info-desarrollo {
+        background: white;
+        padding: 15px;
+        border-radius: 6px;
+        margin-top: 15px;
+        border: 1px solid #e9ecef;
+      }
+
+      .metricas {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-top: 15px;
+      }
+
+      .metrica {
+        background: white;
+        padding: 15px;
+        border-radius: 6px;
+        border: 1px solid #e9ecef;
+        text-align: center;
+      }
+
+      .metrica-valor {
+        font-size: 24px;
+        font-weight: bold;
+        color: #3498db;
+      }
+
+      .metrica-label {
+        font-size: 12px;
+        color: #6c757d;
+        margin-top: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Botón alternador de tema -->
+    <button class="theme-toggle" onclick="alternarTema()" title="Alternar tema claro/oscuro">☀️</button>
+
+    <div class="container">
+      <div class="inputs">
+        <h2>Parámetros de entrada</h2>
+        <form id="formEntradas"></form>
+
+        <!-- Panel de desarrollo -->
+        <div class="panel-desarrollo">
+          <h3>🔧 Panel de Desarrollo</h3>
+
+          <div class="botones-desarrollo">
+            <button type="button" onclick="probarEscenarios()">Probar Escenarios</button>
+            <button type="button" onclick="validarConfiguracion()">Validar Config</button>
+            <button type="button" onclick="exportarDatos()">Exportar</button>
+            <button type="button" onclick="mostrarMetricas()">Métricas</button>
+            <button type="button" onclick="resetearMetricas()">Reset Métricas</button>
+            <button type="button" onclick="alternarDebug()" id="btnDebug">Activar Debug</button>
+          </div>
+
+          <div class="botones-desarrollo">
+            <button type="button" onclick="cargarDatosCompletos()">Datos Completos</button>
+            <button type="button" onclick="cargarDatosParciales()">Datos Parciales</button>
+            <button type="button" onclick="cargarDatosConflictivos()">Datos Conflictivos</button>
+            <button type="button" onclick="limpiarFormulario()">Limpiar</button>
+          </div>
+
+          <div id="infoDesarrollo" class="info-desarrollo" style="display: none"></div>
+
+          <div id="metricas" class="metricas" style="display: none"></div>
         </div>
-        
-        <div class="botones-desarrollo">
-          <button type="button" onclick="cargarDatosCompletos()">Datos Completos</button>
-          <button type="button" onclick="cargarDatosParciales()">Datos Parciales</button>
-          <button type="button" onclick="cargarDatosConflictivos()">Datos Conflictivos</button>
-          <button type="button" onclick="limpiarFormulario()">Limpiar</button>
-        </div>
-        
-        <div id="infoDesarrollo" class="info-desarrollo" style="display: none;"></div>
-        
-        <div id="metricas" class="metricas" style="display: none;"></div>
+      </div>
+
+      <div class="outputs">
+        <h2>Salidas más probables</h2>
+        <ul id="resultado"></ul>
       </div>
     </div>
 
-    <div class="outputs">
-      <h2>Salidas más probables</h2>
-      <ul id="resultado"></ul>
-    </div>
-  </div>
+    <script src="./src/main.js"></script>
+    <script src="./src/extensiones.js"></script>
 
-  <script src="script.js"></script>
-  <script src="extensiones.js"></script>
-  
-  <script>
-    // Variables globales para desarrollo
-    let gestorConfig;
-    let analizador;
-    
-    // Inicializar herramientas de desarrollo
-    document.addEventListener('DOMContentLoaded', () => {
-      // Esperar a que el sistema esté listo
-      const inicializarDesarrollo = () => {
-        if (window.sistema) {
-          gestorConfig = new GestorConfiguracion(sistema);
-          analizador = new AnalizadorRendimiento(sistema);
-          console.log('🔧 Herramientas de desarrollo cargadas');
-        } else {
-          setTimeout(inicializarDesarrollo, 100);
-        }
-      };
-      
-      setTimeout(inicializarDesarrollo, 500);
-    });
-    
-    // Funciones de desarrollo
-    function probarEscenarios() {
-      if (!sistema) {
-        alert('Sistema no inicializado');
-        return;
-      }
-      
-      const resultados = probarTodosLosEscenarios(sistema);
-      
-      let info = '<h4>📊 Resultados de Pruebas</h4>';
-      
-      Object.entries(resultados).forEach(([escenario, resultado]) => {
-        info += `<h5>${escenario.charAt(0).toUpperCase() + escenario.slice(1)}:</h5>`;
-        if (resultado.length > 0) {
-          info += `<ul>`;
-          resultado.slice(0, 3).forEach(r => {
-            info += `<li><strong>${r.nombre}</strong>: ${(r.probabilidad * 100).toFixed(1)}%</li>`;
-          });
-          info += `</ul>`;
-        } else {
-          info += '<p>Sin resultados válidos</p>';
-        }
+    <script>
+      // Variables globales para desarrollo
+      let gestorConfig;
+      let analizador;
+
+      // Inicializar herramientas de desarrollo
+      document.addEventListener("DOMContentLoaded", () => {
+        // Esperar a que el sistema esté listo
+        const inicializarDesarrollo = () => {
+          if (window.sistema) {
+            gestorConfig = new GestorConfiguracion(sistema);
+            analizador = new AnalizadorRendimiento(sistema);
+            console.log("🔧 Herramientas de desarrollo cargadas");
+          } else {
+            setTimeout(inicializarDesarrollo, 100);
+          }
+        };
+
+        setTimeout(inicializarDesarrollo, 500);
       });
-      
-      mostrarInfo(info);
-    }
-    
-    function validarConfiguracion() {
-      if (!sistema) {
-        alert('Sistema no inicializado');
-        return;
-      }
-      
-      const config = sistema.exportarConfiguracion();
-      const errores = ValidadorConfiguracion.validarConfiguracionCompleta(config);
-      
-      let info = '<h4>✅ Validación de Configuración</h4>';
-      
-      if (errores.length === 0) {
-        info += '<p style="color: green;">✅ Configuración válida</p>';
-      } else {
-        info += '<p style="color: red;">❌ Se encontraron errores:</p>';
-        info += '<ul>';
-        errores.forEach(error => {
-          info += `<li style="color: red;">${error}</li>`;
+
+      // Funciones de desarrollo
+      function probarEscenarios() {
+        if (!sistema) {
+          alert("Sistema no inicializado");
+          return;
+        }
+
+        const resultados = probarTodosLosEscenarios(sistema);
+
+        let info = "<h4>📊 Resultados de Pruebas</h4>";
+
+        Object.entries(resultados).forEach(([escenario, resultado]) => {
+          info += `<h5>${escenario.charAt(0).toUpperCase() + escenario.slice(1)}:</h5>`;
+          if (resultado.length > 0) {
+            info += `<ul>`;
+            resultado.slice(0, 3).forEach((r) => {
+              info += `<li><strong>${r.nombre}</strong>: ${(r.probabilidad * 100).toFixed(1)}%</li>`;
+            });
+            info += `</ul>`;
+          } else {
+            info += "<p>Sin resultados válidos</p>";
+          }
         });
-        info += '</ul>';
+
+        mostrarInfo(info);
       }
-      
-      mostrarInfo(info);
-    }
-    
-    function mostrarMetricas() {
-      if (!analizador) {
-        alert('Analizador no inicializado');
-        return;
+
+      function validarConfiguracion() {
+        if (!sistema) {
+          alert("Sistema no inicializado");
+          return;
+        }
+
+        const config = sistema.exportarConfiguracion();
+        const errores = ValidadorConfiguracion.validarConfiguracionCompleta(config);
+
+        let info = "<h4>✅ Validación de Configuración</h4>";
+
+        if (errores.length === 0) {
+          info += '<p style="color: green;">✅ Configuración válida</p>';
+        } else {
+          info += '<p style="color: red;">❌ Se encontraron errores:</p>';
+          info += "<ul>";
+          errores.forEach((error) => {
+            info += `<li style="color: red;">${error}</li>`;
+          });
+          info += "</ul>";
+        }
+
+        mostrarInfo(info);
       }
-      
-      const reporte = analizador.obtenerReporte();
-      
-      const metricas = document.getElementById('metricas');
-      metricas.innerHTML = `
+
+      function mostrarMetricas() {
+        if (!analizador) {
+          alert("Analizador no inicializado");
+          return;
+        }
+
+        const reporte = analizador.obtenerReporte();
+
+        const metricas = document.getElementById("metricas");
+        metricas.innerHTML = `
         <div class="metrica">
           <div class="metrica-valor">${reporte.evaluaciones}</div>
           <div class="metrica-label">Evaluaciones</div>
@@ -204,69 +204,69 @@
           <div class="metrica-label">Tasa de Error</div>
         </div>
         <div class="metrica">
-          <div class="metrica-valor">${reporte.resultadoMasFrecuente.nombre || 'N/A'}</div>
+          <div class="metrica-valor">${reporte.resultadoMasFrecuente.nombre || "N/A"}</div>
           <div class="metrica-label">Resultado Más Frecuente (${reporte.resultadoMasFrecuente.count})</div>
         </div>
       `;
-      metricas.style.display = 'grid';
-    }
-    
-    function resetearMetricas() {
-      if (analizador) {
-        analizador.reset();
-        mostrarMetricas();
-        mostrarInfo('<h4>🔄 Métricas reseteadas</h4>');
+        metricas.style.display = "grid";
       }
-    }
-    
-    function cargarDatosCompletos() {
-      const datos = generarDatosPrueba().entradaCompleta;
-      cargarDatosEnFormulario(datos);
-    }
-    
-    function cargarDatosParciales() {
-      const datos = generarDatosPrueba().entradaParcial;
-      cargarDatosEnFormulario(datos);
-    }
-    
-    function cargarDatosConflictivos() {
-      const datos = generarDatosPrueba().entradaConflictiva;
-      cargarDatosEnFormulario(datos);
-    }
-    
-    function cargarDatosEnFormulario(datos) {
-      Object.entries(datos).forEach(([campo, valor]) => {
-        const elemento = document.getElementById(campo);
-        if (elemento) {
-          elemento.value = valor;
-          elemento.dispatchEvent(new Event('change'));
+
+      function resetearMetricas() {
+        if (analizador) {
+          analizador.reset();
+          mostrarMetricas();
+          mostrarInfo("<h4>🔄 Métricas reseteadas</h4>");
         }
-      });
-    }
-    
-    function limpiarFormulario() {
-      if (sistema) {
-        sistema.valoresEntradas = {};
-        sistema.generarFormulario();
-        document.getElementById('resultado').innerHTML = '';
       }
-    }
-    
-    function mostrarInfo(contenido) {
-      const infoDiv = document.getElementById('infoDesarrollo');
-      infoDiv.innerHTML = contenido;
-      infoDiv.style.display = 'block';
-    }
-    
-    function alternarDebug() {
-      window.DEBUG_MODE = !window.DEBUG_MODE;
-      const btn = document.getElementById('btnDebug');
-      btn.textContent = window.DEBUG_MODE ? 'Desactivar Debug' : 'Activar Debug';
-      btn.style.backgroundColor = window.DEBUG_MODE ? '#dc3545' : '';
-      
-      mostrarInfo(`<h4>🔧 Modo Debug ${window.DEBUG_MODE ? 'ACTIVADO' : 'DESACTIVADO'}</h4>
+
+      function cargarDatosCompletos() {
+        const datos = generarDatosPrueba().entradaCompleta;
+        cargarDatosEnFormulario(datos);
+      }
+
+      function cargarDatosParciales() {
+        const datos = generarDatosPrueba().entradaParcial;
+        cargarDatosEnFormulario(datos);
+      }
+
+      function cargarDatosConflictivos() {
+        const datos = generarDatosPrueba().entradaConflictiva;
+        cargarDatosEnFormulario(datos);
+      }
+
+      function cargarDatosEnFormulario(datos) {
+        Object.entries(datos).forEach(([campo, valor]) => {
+          const elemento = document.getElementById(campo);
+          if (elemento) {
+            elemento.value = valor;
+            elemento.dispatchEvent(new Event("change"));
+          }
+        });
+      }
+
+      function limpiarFormulario() {
+        if (sistema) {
+          sistema.valoresEntradas = {};
+          sistema.generarFormulario();
+          document.getElementById("resultado").innerHTML = "";
+        }
+      }
+
+      function mostrarInfo(contenido) {
+        const infoDiv = document.getElementById("infoDesarrollo");
+        infoDiv.innerHTML = contenido;
+        infoDiv.style.display = "block";
+      }
+
+      function alternarDebug() {
+        window.DEBUG_MODE = !window.DEBUG_MODE;
+        const btn = document.getElementById("btnDebug");
+        btn.textContent = window.DEBUG_MODE ? "Desactivar Debug" : "Activar Debug";
+        btn.style.backgroundColor = window.DEBUG_MODE ? "#dc3545" : "";
+
+        mostrarInfo(`<h4>🔧 Modo Debug ${window.DEBUG_MODE ? "ACTIVADO" : "DESACTIVADO"}</h4>
         <p>Revisa la consola del navegador para ver información detallada sobre qué campos son relevantes.</p>`);
-    }
-  </script>
-</body>
+      }
+    </script>
+  </body>
 </html>
