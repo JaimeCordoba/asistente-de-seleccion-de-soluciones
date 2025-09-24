@@ -1,6 +1,36 @@
 [
-  { "nombre": "zona", "tipo": "texto", "opciones": ["Aragón"] },
-  { "nombre": "subzona", "tipo": "texto", "opciones": ["Teruel", "Zaragoza"] },
+  {
+    "nombre": "zona",
+    "tipo": "texto",
+    "opciones": ["Aragón", "Cataluña", "Valencia"]
+  },
+  {
+    "nombre": "subzona",
+    "tipo": "texto",
+    "dependeDe": "zona",
+    "opcionesDependientes": {
+      "Aragón": ["Zaragoza", "Huesca", "Teruel"],
+      "Cataluña": ["Barcelona", "Girona", "Lleida", "Tarragona"],
+      "Valencia": ["Valencia", "Castellón", "Alicante"]
+    }
+  },
+  {
+    "nombre": "pueblo",
+    "tipo": "texto",
+    "dependeDe": "subzona",
+    "opcionesDependientes": {
+      "Zaragoza": ["Zaragoza", "Calatayud", "Ejea de los Caballeros", "Tarazona"],
+      "Huesca": ["Huesca", "Monzón", "Barbastro", "Jaca"],
+      "Teruel": ["Teruel", "Alcañiz", "Andorra", "Calamocha"],
+      "Barcelona": ["Barcelona", "Hospitalet de Llobregat", "Badalona", "Terrassa"],
+      "Girona": ["Girona", "Figueres", "Blanes", "Lloret de Mar"],
+      "Lleida": ["Lleida", "Balaguer", "Tàrrega", "Mollerussa"],
+      "Tarragona": ["Tarragona", "Reus", "Tortosa", "Cambrils"],
+      "Valencia": ["Valencia", "Gandía", "Sagunto", "Xàtiva"],
+      "Castellón": ["Castellón de la Plana", "Vila-real", "Burriana", "Vinaròs"],
+      "Alicante": ["Alicante", "Elche", "Torrevieja", "Orihuela"]
+    }
+  },
   { "nombre": "tecnico", "tipo": "texto", "opciones": ["Antonio"] },
 
   { "nombre": "tratamiento_economico", "tipo": "texto", "opciones": ["Baremo", "Presupuesto"] },

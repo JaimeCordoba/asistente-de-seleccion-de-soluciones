@@ -7,6 +7,8 @@ export class FormGenerator {
   constructor(entradas, onValueChange) {
     this.entradas = entradas;
     this.onValueChange = onValueChange;
+    this.valoresActuales = {};
+    this.dependenciasMap = this._construirMapaDependencias();
   }
 
   /**
@@ -87,6 +89,8 @@ export class FormGenerator {
 
     // Agregar listener para cambios
     input.addEventListener("change", () => {
+      this.valoresActuales[entrada.nombre] = input.value;
+      this._actualizarCamposDependientes(entrada.nombre, input.value);
       this.onValueChange(entrada.nombre, input.value);
     });
 
@@ -104,21 +108,7 @@ export class FormGenerator {
     select.id = entrada.nombre;
     select.name = entrada.nombre;
 
-    // Opción vacía
-    const opcionVacia = document.createElement("option");
-    opcionVacia.value = "";
-    opcionVacia.textContent = "-- Seleccionar --";
-    select.appendChild(opcionVacia);
-
-    // Opciones de la entrada
-    if (entrada.opciones) {
-      entrada.opciones.forEach((opcion) => {
-        const option = document.createElement("option");
-        option.value = opcion;
-        option.textContent = opcion;
-        select.appendChild(option);
-      });
-    }
+    this._poblarOpcionesSelect(select, entrada);
 
     return select;
   }
@@ -214,5 +204,136 @@ export class FormGenerator {
         }
       }
     }
+  }
+
+  /**
+   * Construye un mapa de dependencias para optimizar búsquedas
+   * @private
+   * @returns {Map} Mapa de dependencias
+   */
+  _construirMapaDependencias() {
+    const mapa = new Map();
+
+    this.entradas.forEach((entrada) => {
+      if (entrada.dependeDe) {
+        if (!mapa.has(entrada.dependeDe)) {
+          mapa.set(entrada.dependeDe, []);
+        }
+        mapa.get(entrada.dependeDe).push(entrada);
+      }
+    });
+
+    return mapa;
+  }
+
+  /**
+   * Puebla las opciones de un select
+   * @private
+   * @param {HTMLSelectElement} select - Elemento select
+   * @param {Object} entrada - Configuración de la entrada
+   */
+  _poblarOpcionesSelect(select, entrada) {
+    // Limpiar opciones existentes
+    select.innerHTML = "";
+
+    // Opción vacía
+    const opcionVacia = document.createElement("option");
+    opcionVacia.value = "";
+    opcionVacia.textContent = "-- Seleccionar --";
+    select.appendChild(opcionVacia);
+
+    let opciones = [];
+
+    // Determinar qué opciones mostrar
+    if (entrada.dependeDe && entrada.opcionesDependientes) {
+      const valorPadre = this.valoresActuales[entrada.dependeDe];
+      if (valorPadre && entrada.opcionesDependientes[valorPadre]) {
+        opciones = entrada.opcionesDependientes[valorPadre];
+      }
+      // Si no hay valor padre o no tiene opciones dependientes, no mostrar opciones
+    } else if (entrada.opciones) {
+      // Campo independiente con opciones fijas
+      opciones = entrada.opciones;
+    }
+
+    // Agregar opciones disponibles
+    opciones.forEach((opcion) => {
+      const option = document.createElement("option");
+      option.value = opcion;
+      option.textContent = opcion;
+      select.appendChild(option);
+    });
+
+    // Habilitar/deshabilitar el select según disponibilidad de opciones
+    select.disabled = opciones.length === 0;
+  }
+
+  /**
+   * Actualiza los campos dependientes cuando cambia un valor
+   * @private
+   * @param {string} nombreCampo - Nombre del campo que cambió
+   * @param {string} nuevoValor - Nuevo valor del campo
+   */
+  _actualizarCamposDependientes(nombreCampo, nuevoValor) {
+    const camposDependientes = this.dependenciasMap.get(nombreCampo);
+
+    if (camposDependientes) {
+      camposDependientes.forEach((entrada) => {
+        const select = document.getElementById(entrada.nombre);
+        if (select) {
+          // Limpiar valor actual del campo dependiente
+          select.value = "";
+          this.valoresActuales[entrada.nombre] = "";
+
+          // Repoblar opciones
+          this._poblarOpcionesSelect(select, entrada);
+
+          // Actualizar campos que dependen de este
+          this._actualizarCamposDependientes(entrada.nombre, "");
+        }
+      });
+    }
+  }
+
+  /**
+   * Actualiza los valores actuales desde el formulario
+   * @param {Object} valores - Valores actuales del formulario
+   */
+  actualizarValores(valores) {
+    this.valoresActuales = { ...valores };
+
+    // Refrescar todos los selects dependientes
+    this.entradas.forEach((entrada) => {
+      if (entrada.dependeDe && entrada.opcionesDependientes) {
+        const select = document.getElementById(entrada.nombre);
+        if (select) {
+          this._poblarOpcionesSelect(select, entrada);
+          // Restaurar valor si es válido
+          if (valores[entrada.nombre] && this._esOpcionValida(entrada, valores[entrada.nombre])) {
+            select.value = valores[entrada.nombre];
+          }
+        }
+      }
+    });
+  }
+
+  /**
+   * Verifica si una opción es válida para una entrada dependiente
+   * @private
+   * @param {Object} entrada - Configuración de la entrada
+   * @param {string} valor - Valor a verificar
+   * @returns {boolean} True si la opción es válida
+   */
+  _esOpcionValida(entrada, valor) {
+    if (!entrada.dependeDe || !entrada.opcionesDependientes) {
+      return entrada.opciones && entrada.opciones.includes(valor);
+    }
+
+    const valorPadre = this.valoresActuales[entrada.dependeDe];
+    if (!valorPadre || !entrada.opcionesDependientes[valorPadre]) {
+      return false;
+    }
+
+    return entrada.opcionesDependientes[valorPadre].includes(valor);
   }
 }

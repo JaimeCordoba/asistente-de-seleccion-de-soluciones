@@ -1,5 +1,5 @@
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 20px;
   background-color: #1a1a1a;
@@ -15,11 +15,12 @@ body {
   margin: 0 auto;
 }
 
-.inputs, .outputs {
+.inputs,
+.outputs {
   background: #2d2d2d;
   padding: 25px;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   border: 1px solid #404040;
 }
 
@@ -107,6 +108,21 @@ h2 {
   box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.3);
 }
 
+/* Estilos para campos deshabilitados por dependencias */
+.campo-entrada select:disabled,
+.campo-entrada input:disabled {
+  background-color: #2a2a2a;
+  color: #888;
+  border-color: #444;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.campo-entrada select:disabled::placeholder,
+.campo-entrada input:disabled::placeholder {
+  color: #666;
+}
+
 button {
   background: linear-gradient(135deg, #4a9eff, #3d8bff);
   color: white;
@@ -148,7 +164,7 @@ button:active {
 }
 
 .resultado-item:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
   transform: translateY(-2px);
   border-color: #4a9eff;
 }
@@ -352,7 +368,7 @@ button:active {
   cursor: pointer;
   font-size: 20px;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   z-index: 1000;
 }
 
@@ -371,7 +387,7 @@ body.light-mode .inputs,
 body.light-mode .outputs {
   background: white;
   border: 1px solid #e1e8ed;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 body.light-mode h2 {
@@ -404,7 +420,7 @@ body.light-mode .resultado-item {
 
 body.light-mode .resultado-item:hover {
   border-color: #3498db;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 body.light-mode .resultado-header {
@@ -520,21 +536,22 @@ body.light-mode .confianza-baja {
     flex-direction: column;
     gap: 20px;
   }
-  
-  .inputs, .outputs {
+
+  .inputs,
+  .outputs {
     min-width: auto;
   }
-  
+
   .resultado-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
   }
-  
+
   .posicion {
     align-self: flex-start;
   }
-  
+
   .theme-toggle {
     top: 10px;
     right: 10px;
@@ -576,7 +593,7 @@ body.light-mode .confianza-baja {
   font-size: 0.9em;
   font-weight: 500;
   display: inline-block;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .alerta-variables-criticas details {
@@ -654,9 +671,15 @@ body.light-mode .confianza-baja {
 
 /* Animación de pulso sutil para campos obligatorios incompletos */
 @keyframes pulso-rojo {
-  0% { box-shadow: 0 0 8px rgba(255, 107, 107, 0.3); }
-  50% { box-shadow: 0 0 12px rgba(255, 107, 107, 0.5); }
-  100% { box-shadow: 0 0 8px rgba(255, 107, 107, 0.3); }
+  0% {
+    box-shadow: 0 0 8px rgba(255, 107, 107, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 12px rgba(255, 107, 107, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 8px rgba(255, 107, 107, 0.3);
+  }
 }
 
 /* Mensaje mejorado para campos obligatorios */
@@ -742,7 +765,13 @@ body.light-mode .campo-entrada.obligatorio-incompleto {
 }
 
 @keyframes pulso-rojo-claro {
-  0% { box-shadow: 0 0 8px rgba(220, 53, 69, 0.25); }
-  50% { box-shadow: 0 0 12px rgba(220, 53, 69, 0.4); }
-  100% { box-shadow: 0 0 8px rgba(220, 53, 69, 0.25); }
+  0% {
+    box-shadow: 0 0 8px rgba(220, 53, 69, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 12px rgba(220, 53, 69, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 8px rgba(220, 53, 69, 0.25);
+  }
 }

@@ -126,6 +126,9 @@ export class SistemaSeleccionSoluciones {
 
     DebugUtils.log(`Valor actualizado: ${nombre} = ${this.valoresEntradas[nombre]}`);
 
+    // Actualizar valores en el FormGenerator para manejar dependencias
+    this.formGenerator.actualizarValores(this.valoresEntradas);
+
     this.actualizarInterfaz();
   }
 

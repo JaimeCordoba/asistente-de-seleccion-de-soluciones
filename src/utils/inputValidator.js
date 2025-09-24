@@ -68,6 +68,39 @@ export class InputValidator {
   }
 
   /**
+   * Valida un valor de texto considerando dependencias
+   * @param {*} valor - Valor a validar
+   * @param {Object} entrada - Configuración de la entrada
+   * @param {Object} valoresActuales - Valores actuales del formulario
+   * @returns {string|undefined}
+   */
+  static validarTextoConDependencias(valor, entrada, valoresActuales = {}) {
+    const valorStr = String(valor);
+
+    // Si es una entrada dependiente
+    if (entrada.dependeDe && entrada.opcionesDependientes) {
+      const valorPadre = valoresActuales[entrada.dependeDe];
+      if (!valorPadre) {
+        return undefined; // No se puede validar sin el valor padre
+      }
+
+      const opcionesDisponibles = entrada.opcionesDependientes[valorPadre];
+      if (!opcionesDisponibles) {
+        return undefined; // No hay opciones para este valor padre
+      }
+
+      return opcionesDisponibles.includes(valorStr) ? valorStr : undefined;
+    }
+
+    // Si es una entrada independiente con opciones fijas
+    if (entrada.opciones && entrada.opciones.length > 0) {
+      return entrada.opciones.includes(valorStr) ? valorStr : undefined;
+    }
+
+    return valorStr;
+  }
+
+  /**
    * Valida si un valor es válido para una entrada específica
    * @param {*} valor - Valor a validar
    * @param {Object} entrada - Configuración de la entrada
@@ -86,9 +119,10 @@ export class InputValidator {
    * Obtiene un mensaje de error para un valor inválido
    * @param {*} valor - Valor inválido
    * @param {Object} entrada - Configuración de la entrada
+   * @param {Object} valoresActuales - Valores actuales del formulario
    * @returns {string} Mensaje de error
    */
-  static obtenerMensajeError(valor, entrada) {
+  static obtenerMensajeError(valor, entrada, valoresActuales = {}) {
     if (valor === undefined || valor === null || valor === "") {
       return `El campo ${entrada.nombre} es obligatorio`;
     }
@@ -99,7 +133,16 @@ export class InputValidator {
       case "numero":
         return `${entrada.nombre} debe ser un número válido`;
       case "texto":
-        if (entrada.opciones && entrada.opciones.length > 0) {
+        if (entrada.dependeDe && entrada.opcionesDependientes) {
+          const valorPadre = valoresActuales[entrada.dependeDe];
+          if (!valorPadre) {
+            return `Debe seleccionar primero ${entrada.dependeDe}`;
+          }
+          const opcionesDisponibles = entrada.opcionesDependientes[valorPadre];
+          if (opcionesDisponibles) {
+            return `${entrada.nombre} debe ser una de las opciones: ${opcionesDisponibles.join(", ")}`;
+          }
+        } else if (entrada.opciones && entrada.opciones.length > 0) {
           return `${entrada.nombre} debe ser una de las opciones: ${entrada.opciones.join(", ")}`;
         }
         return `${entrada.nombre} debe ser un texto válido`;
